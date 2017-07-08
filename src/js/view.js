@@ -2,10 +2,13 @@ import {isEnabled} from './lib/feature';
 
 export function render(el, state) {
     const todoItems = state.todos.map(renderTodoItem).join('');
+
     el.innerHTML = renderApp(
         renderInput(),
         renderTodos(todoItems)
     );
+
+    document.getElementById('todoInput').focus();
 }
 
 function renderApp(input, todoList) {
