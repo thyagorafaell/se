@@ -5,14 +5,14 @@ html, body, .todo {
 
 .todo {
     list-style-type: none;
-}
 
-.todo__input, .todo__item {
-    margin: 10px;
-}
+    &__input, &__item {
+        margin: 10px;
+    }
 
-.todo__item--done {
-    text-decoration: line-through;
+    &__item--done {
+        text-decoration: line-through;
+    }
 }
 
 #addTodo {

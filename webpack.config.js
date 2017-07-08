@@ -19,10 +19,9 @@ module.exports = {
                 }
             },
             {
-                loader: 'style!css',
-                test: /\.css$/,
-                include: [path.resolve(__dirname, 'src', 'css')]
+                test: /\.scss$/,
+                loaders: ["style-loader", "css-loader", "sass-loader"]
             }
-        ]
+        ] 
     }
 };
