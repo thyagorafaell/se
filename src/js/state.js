@@ -22,6 +22,23 @@ const initialState = {
             text: 'Filter todos by text',
             done: false
         }
+    ],
+    filters: [
+        {
+            id: 'all',
+            text: 'Mostrar todos',
+            selected: true
+        },
+        {
+            id: 'open',
+            text: 'Somente abertos',
+            selected: false
+        },
+        {
+            id: 'done',
+            text: 'Somente fechados',
+            selected: false
+        }
     ]
 };
 
@@ -45,4 +62,22 @@ function todoChangeHandler(state, change) {
     }
 }
 
+function filterChangeHandler(state, change) {
+    switch(change.type) {
+        case 'FILTER_OPTION_CHANGE':
+            state.filters.map(option => {
+              option.selected = false;
+
+              if (option.id === change.id) {
+                  option.selected = true;
+              }
+
+              return option;
+            });
+
+            break;
+    }
+}
+
 export const todos = createStore(todoChangeHandler, initialState);
+export const filters = createStore(filterChangeHandler, initialState);

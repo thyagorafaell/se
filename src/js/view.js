@@ -1,18 +1,21 @@
 import {isEnabled} from './lib/feature';
 
 export function render(el, state) {
-    const todoItems = state.todos.map(renderTodoItem).join('');
+    const
+      todoItems = state.todos.map(renderTodoItem).join(''),
+      filters = state.filters.map(renderFilter).join('');
 
     el.innerHTML = renderApp(
         renderInput(),
-        renderTodos(todoItems)
+        renderTodos(todoItems),
+        renderFilters(filters)
     );
 
     document.getElementById('todoInput').focus();
 }
 
-function renderApp(input, todoList) {
-    let content = renderAddTodoContent(input, todoList);
+function renderApp(input, todoList, filter) {
+    const content = renderAddTodoContent(input, todoList) + filter;
 
     return `<div id="app">${content}</div>`;
 }
@@ -56,8 +59,22 @@ function renderTodos(todoItems) {
 
 function renderTodoItem(todo) {
     const todoClass = `todo__item todo__item--${todo.done ? 'done' : 'open'}`;
+
     return `<li class="${todoClass}">
         <input class="js_toggle_todo" type="checkbox" data-id="${todo.id}"${todo.done ? ' checked' : ''}>
         ${todo.text}
+    </li>`;
+}
+
+function renderFilters(filters) {
+    return `<ul class="filter">${filters}</ul>`;
+}
+
+function renderFilter(filter) {
+    const filterClass = `filter__option ${filter.selected ? 'filter__option--selected' : ''}`;
+
+    return `<li class="${filterClass}">
+        <input type="radio" class="js_select_situation" id="${filter.id}" ${filter.selected ? ' checked' : ''} name="todo-filter-situation-option">
+        <label for="${filter.id}">${filter.text}</label>
     </li>`;
 }

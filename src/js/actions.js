@@ -12,3 +12,10 @@ export function addTodo(text) {
         text
     }
 }
+
+export function changeFilterState(id) {
+    return {
+        type: 'FILTER_OPTION_CHANGE',
+        id
+    }
+}
