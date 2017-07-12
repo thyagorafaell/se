@@ -1,18 +1,6 @@
-html, body, .todo {
+html, body {
     margin: 0;
     padding: 0;
-}
-
-.todo {
-    list-style-type: none;
-
-    &__input, &__item {
-        margin: 10px;
-    }
-
-    &__item--done {
-        text-decoration: line-through;
-    }
 }
 
 #addTodo {
