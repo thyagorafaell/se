@@ -1,9 +1,11 @@
 import {isEnabled} from './lib/feature';
+import {filterTodoItens} from './filters';
 
 export function render(el, state) {
-    const
-      todoItems = state.todos.map(renderTodoItem).join(''),
-      filters = state.filters.map(renderFilter).join('');
+    const filters = state.filters.map(renderFilter).join('');
+    let todoItems = filterTodoItens(state);
+    
+    todoItems = todoItems.map(renderTodoItem).join('');
 
     el.innerHTML = renderApp(
         renderInput(),
