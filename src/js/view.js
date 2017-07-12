@@ -17,7 +17,11 @@ export function render(el, state) {
 }
 
 function renderApp(input, todoList, filter) {
-    const content = renderAddTodoContent(input, todoList) + filter;
+    let content = renderAddTodoContent(input, todoList);
+
+    if(isEnabled('filter')) {
+        content += filter;
+    }
 
     return `<div id="app">${content}</div>`;
 }
