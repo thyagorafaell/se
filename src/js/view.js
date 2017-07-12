@@ -12,11 +12,17 @@ export function render(el, state) {
 }
 
 function renderApp(input, todoList) {
-    if(isEnabled('renderBottom')) {
-        return renderAddTodoAtBottom(input, todoList);
-    } else {
-        return renderAddTodoAtTop(input, todoList);
-    }
+    let content = renderAddTodoContent(input, todoList);
+
+    return `<div id="app">${content}</div>`;
+}
+
+function renderAddTodoContent(input, todoList) {
+  if(isEnabled('renderBottom')) {
+    return `${todoList} ${input}`;
+  }
+
+  return `${input} ${todoList}`;
 }
 
 function renderAddTodoAtTop(input, todoList) {
