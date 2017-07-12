@@ -20,10 +20,20 @@ function renderApp(input, todoList, filter) {
     let content = renderAddTodoContent(input, todoList);
 
     if(isEnabled('filter')) {
-        content += filter;
+        content = renderFilterAndTodoContent(filter, content);
     }
 
     return `<div id="app">${content}</div>`;
+}
+
+function renderFilterAndTodoContent(filter, content) {
+    if(isEnabled('filter')) {
+        if(isEnabled('renderBottom') && isEnabled('filterTop')) {
+            return filter + content;
+        }
+
+        return content += filter;
+    }
 }
 
 function renderAddTodoContent(input, todoList) {
