@@ -1,63 +1,35 @@
 import {createStore} from './lib/state';
+import {get, save, update} from './lib/storage';
+import {run} from './migrations/V1';
+
+run();
 
 const initialState = {
-    todos: [
-        {
-            id: 0,
-            text: 'Take a look at the application',
-            done: true
-        },
-        {
-            id: 1,
-            text: 'Add ability to filter todos',
-            done: false
-        },
-        {
-            id: 2,
-            text: 'Filter todos by status',
-            done: false
-        },
-        {
-            id: 3,
-            text: 'Filter todos by text',
-            done: false
-        }
-    ],
-    filters: [
-        {
-            id: 'all',
-            text: 'Mostrar todos',
-            selected: true
-        },
-        {
-            id: 'open',
-            text: 'Somente abertos',
-            selected: false
-        },
-        {
-            id: 'done',
-            text: 'Somente fechados',
-            selected: false
-        }
-    ]
+    todos: get('todos'),
+    filters: get('filters')
 };
 
 function todoChangeHandler(state, change) {
     switch(change.type) {
         case 'ADD_TODO':
-            state.todos.push({
-                id: state.todos.length,
+            save('todos', {
                 text: change.text,
                 done: false
             });
+
+            state.todos = get('todos');
+
             break;
         case 'TODO_TOGGLE_DONE':
-            for(let todo of state.todos) {
-                if(todo.id === change.id) {
-                    todo.done = !todo.done;
-                    break;
-                }
-            }
+            let todo = state.todos.find(todo => {
+                return todo.id === change.id;
+            });
+
+            todo.done = !todo.done;
+
+            update('todos', todo);
+            state.todos = get('todos');
+
             break;
     }
 }
@@ -65,14 +37,14 @@ function todoChangeHandler(state, change) {
 function filterChangeHandler(state, change) {
     switch(change.type) {
         case 'FILTER_OPTION_CHANGE':
-            state.filters.map(option => {
-              option.selected = false;
+            state.filters.forEach(option => {
+                option.selected = false;
 
-              if (option.id === change.id) {
-                  option.selected = true;
-              }
+                if (option.id === change.id) {
+                    option.selected = true;
+                }
 
-              return option;
+                update('filters', option);
             });
 
             break;
