@@ -2,7 +2,7 @@ import * as uuid from 'uuid-v4';
 const appPrefix = '__se__todo__app__';
 
 function createTodos() {
-    localStorage.setItem(appPrefix + 'todos', [
+    localStorage.setItem(appPrefix + 'todos', JSON.stringify([
         {
             id: uuid.default(),
             text: 'Take a look at the application',
@@ -23,11 +23,11 @@ function createTodos() {
             text: 'Filter todos by text',
             done: false
         }
-    ]);
+    ]));
 };
 
 function createFilters() {
-    localStorage.setItem(appPrefix + 'filters', [
+    localStorage.setItem(appPrefix + 'filters', JSON.stringify([
         {
             id: 'all',
             text: 'Mostrar todos',
@@ -43,7 +43,7 @@ function createFilters() {
             text: 'Somente fechados',
             selected: false
         }
-    ]);
+    ]));
 };
 
 export function run() {
