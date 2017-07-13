@@ -44,20 +44,6 @@ function renderAddTodoContent(input, todoList) {
   return `${input} ${todoList}`;
 }
 
-function renderAddTodoAtTop(input, todoList) {
-    return `<div id="app">
-        ${input}
-        ${todoList}
-    </div>`;
-}
-
-function renderAddTodoAtBottom(input, todoList) {
-    return `<div id="app">
-        ${todoList}
-        ${input}
-    </div>`;
-}
-
 function renderInput() {
     return `
         <div class="todo__input">
