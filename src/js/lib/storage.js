@@ -5,7 +5,7 @@ function getEntityName(entity) {
     return appPrefix + entity;
 };
 
-export function get(entity, id) {
+export function get(entity, id = null) {
     let data = getAll(entity);
     
     if (!id) {
@@ -40,7 +40,7 @@ export function update(entity, item) {
     return item;
 };
 
-export function delete(entity, id) {
+export function deleteItem(entity, id) {
     let data = getAll(entity).filter(item => {
         return item.id !== id;
     });
