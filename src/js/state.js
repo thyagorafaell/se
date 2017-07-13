@@ -17,6 +17,8 @@ function todoChangeHandler(state, change) {
                 done: false
             });
 
+            state.todos = get('todos');
+
             break;
         case 'TODO_TOGGLE_DONE':
             let todo = state.todos.find(todo => {
@@ -26,6 +28,8 @@ function todoChangeHandler(state, change) {
             todo.done = !todo.done;
 
             update('todos', todo);
+            state.todos = get('todos');
+
             break;
     }
 }
