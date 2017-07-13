@@ -10,7 +10,7 @@ export function registerEventHandlers() {
     });
 
     listen('click', '.js_toggle_todo', event => {
-        const id = Number.parseInt(event.target.getAttribute('data-id'), 10);
+        const id = event.target.getAttribute('data-id');
         todos.dispatch(toggleTodoState(id));
     });
     
