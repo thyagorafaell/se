@@ -47,11 +47,11 @@ function createFilters() {
 };
 
 export function run() {
-    if (!localStorage.getItem('todos')) {
+    if (!localStorage.getItem(appPrefix + 'todos')) {
         createTodos();
     }
 
-    if (!localStorage.getItem('filters')) {
+    if (!localStorage.getItem(appPrefix + 'filters')) {
         createFilters();
     }
 };
