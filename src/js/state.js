@@ -1,4 +1,4 @@
-import {createStore} from './lib/state';
+import {createStore} from 'redux';
 import {get, save, update} from './lib/storage';
 import {run} from './migrations/V1';
 
@@ -9,7 +9,7 @@ const initialState = {
     filters: get('filters')
 };
 
-function todoChangeHandler(state, change) {
+function todoChangeHandler(state = initialState.todos, change) {
     switch(change.type) {
         case 'ADD_TODO':
             save('todos', {
@@ -18,7 +18,7 @@ function todoChangeHandler(state, change) {
             });
 
             state.todos = get('todos');
-
+            return state;
             break;
         case 'TODO_TOGGLE_DONE':
             let todo = state.todos.find(todo => {
@@ -29,12 +29,14 @@ function todoChangeHandler(state, change) {
 
             update('todos', todo);
             state.todos = get('todos');
-
+            return state;
             break;
+        default:
+            return state;
     }
 }
 
-function filterChangeHandler(state, change) {
+function filterChangeHandler(state = initialState.filters, change) {
     switch(change.type) {
         case 'FILTER_OPTION_CHANGE':
             state.filters.forEach(option => {
@@ -47,7 +49,10 @@ function filterChangeHandler(state, change) {
                 update('filters', option);
             });
 
+            return state;
             break;
+        default:
+            return state;
     }
 }
 
