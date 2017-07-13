@@ -1,9 +1,16 @@
+import {isEnabled} from './lib/feature';
+
 export function filterTodoItens(state) {
-    const
+    let situation = state.filters.find(filter => {
+        return !!filter.selected;
+    });
+
+    if (!isEnabled('filter')) {
         situation = state.filters.find(filter => {
-            return !!filter.selected;
-        })
-    
+            return !!filter.default;
+        });
+    }
+
     return filterTodoBySituation(state.todos, situation);
 }
 

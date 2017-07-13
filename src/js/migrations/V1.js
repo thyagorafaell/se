@@ -31,17 +31,20 @@ function createFilters() {
         {
             id: 'all',
             text: 'Mostrar todos',
-            selected: true
+            selected: true,
+            default: true
         },
         {
             id: 'open',
             text: 'Somente abertos',
-            selected: false
+            selected: false,
+            default: false
         },
         {
             id: 'done',
             text: 'Somente fechados',
-            selected: false
+            selected: false,
+            default: false
         }
     ]));
 };
