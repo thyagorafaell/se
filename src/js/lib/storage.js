@@ -1,5 +1,4 @@
 import * as uuid from 'uuid-v4';
-
 const appPrefix = '__se__todo__app__';
 
 function getEntityName(entity) {
@@ -7,7 +6,6 @@ function getEntityName(entity) {
 };
 
 export function get(entity, id) {
-    entity = getEntityName(entity);
     let data = getAll(entity);
     
     if (!id) {
@@ -20,20 +18,16 @@ export function get(entity, id) {
 };
 
 export function save(entity, item) {
-    entity = getEntityName(entity);
     item.id = uuid.default();
     
     let data = getAll(entity);
     data.push(item);
     
-    localStorage.setItem(entity, data);
+    saveData(entity, data);
     return item;
 };
 
 export function update(entity, item) {
-    entity = getEntityName(entity);
-    item.id = uuid.default();
-
     let data = getAll(entity).map(data => {
         if (data.id === item.id) {
             return item;
@@ -42,21 +36,37 @@ export function update(entity, item) {
         return data;
     });
 
-    localStorage.setItem(entity, data);
+    saveData(entity, data);
     return item;
 };
 
 export function delete(entity, id) {
-    entity = getEntityName(entity);
-
     let data = getAll(entity).filter(item => {
         return item.id !== id;
     });
 
-    localStorage.setItem(entity, data);
+    saveData(entity, data);
     return data;
 };
 
 function getAll(entity) {
-    localStorage.getItem(getEntityName(entity));
+    entity = getEntityName(entity);
+    let data = localStorage.getItem(entity);
+
+    return parse(data);
+};
+
+function saveData(entity, data) {
+    entity = getEntityName(entity);
+    data = prepareData(data);
+
+    localStorage.setItem(entity, data);
+};
+
+function parse(data) {
+    return JSON.parse(data);
+};
+
+function prepareData(data) {
+    return JSON.stringify(data);
 };
