@@ -1,6 +1,6 @@
-import {todos} from './state';
+import {todos, filters} from './state';
 import {listen} from './lib/events';
-import {addTodo, toggleTodoState} from './actions';
+import {addTodo, toggleTodoState, changeFilterState} from './actions';
 
 export function registerEventHandlers() {
     listen('click', '#addTodo', event => {
@@ -10,7 +10,12 @@ export function registerEventHandlers() {
     });
 
     listen('click', '.js_toggle_todo', event => {
-        const id = Number.parseInt(event.target.getAttribute('data-id'), 10);
+        const id = event.target.getAttribute('data-id');
         todos.dispatch(toggleTodoState(id));
+    });
+    
+    listen('click', '.js_select_situation', event => {
+        const id = event.target.getAttribute('id');
+        filters.dispatch(changeFilterState(id));
     });
 }
