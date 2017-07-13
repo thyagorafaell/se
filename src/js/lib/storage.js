@@ -56,3 +56,7 @@ export function delete(entity, id) {
     localStorage.setItem(entity, data);
     return data;
 };
+
+function getAll(entity) {
+    localStorage.getItem(getEntityName(entity));
+};
